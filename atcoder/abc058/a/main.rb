@@ -1,3 +1,2 @@
 #!/usr/bin/env ruby
-a, b, c = gets.chomp.split(" ").map(&:to_i)
-puts (b - a) == (c - b) ? "YES" : "NO"
+puts gets.chomp.split.map(&:to_i).each_cons(2).map { |a, b| b - a }.uniq.size == 1 ? "YES" : "NO"
