@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+a, b, c = gets.chomp.split(" ").map(&:to_i)
+puts (b - a) == (c - b) ? "YES" : "NO"
