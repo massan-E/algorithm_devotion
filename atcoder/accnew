@@ -1,9 +1,6 @@
 #!/bin/bash
 contest_number="$1"
 
-# まず現在のブランチをチェック
-current_branch=$(git branch --show-current)
-
 if ! git branch "$contest_number"; then
     echo "ブランチの作成に失敗しました"
     exit 1
@@ -13,6 +10,8 @@ if ! git switch "$contest_number"; then
     echo "ブランチの切り替えに失敗しました"
     exit 1
 fi
+
+current_branch=$(git branch --show-current)
 
 if [ "$current_branch" == "main" ]; then
     echo "現在のブランチが main です: $current_branch"
