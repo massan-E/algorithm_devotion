@@ -2,5 +2,5 @@
 contest_number="$1"
 
 if git switch -c "$contest_number"; then
-  acc new "$contest_number"
+  acc new "$contest_number" && cd "$contest_number"
 fi
