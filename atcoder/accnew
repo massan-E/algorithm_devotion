@@ -1,8 +1,30 @@
 #!/bin/bash
 contest_number="$1"
 
-if git switch -c "$contest_number"; then
-  if acc new "$contest_number"; then
-    cd "$contest_number"
-  fi
+# まず現在のブランチをチェック
+current_branch=$(git branch --show-current)
+
+if ! git switch -c "$contest_number"; then
+    echo "ブランチの作成に失敗しました"
+    exit 1
+fi
+
+if [ "$current_branch" == "main" ]; then
+    echo "現在のブランチが main です: $current_branch"
+    exit 1
+fi
+
+# この時点で新しいブランチに移動済み
+if ! acc new "$contest_number"; then
+    echo "acc new の実行に失敗しました"
+    git switch main
+    exit 1
+fi
+
+# ディレクトリの作成を確認
+if [ -d "$contest_number" ]; then
+    cd "$contest_number" || exit 1
+else
+    echo "ディレクトリ $contest_number が存在しません"
+    exit 1
 fi
